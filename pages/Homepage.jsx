@@ -1,3 +1,3 @@
 function Homepage() {
-    return <>Homepage</>;
+    return <>Home Page</>;
 }
