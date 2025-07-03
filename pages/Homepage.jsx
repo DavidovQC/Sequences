@@ -6,11 +6,15 @@ function Homepage() {
     const [txt, changeTxt] = useState("");
     const [seqImg, changeSeqImg] = useState();
     const [LMImg, changeLMImg] = useState();
+    const [linearCoeffs, setLinearCoeffs] = useState();
     const [QMImg, changeQMImg] = useState();
+    const [ExpImg, changeExpImg] = useState();
 
     function handleMsgChange(e) {
         changeMsg(e.target.value);
     }
+
+    function handleLinearCoeffsChange() {}
 
     async function getData() {
         const url = `http://localhost:8000/seq?seqID=${msg}`;
@@ -52,10 +56,28 @@ function Homepage() {
         changeQMImg(url);
     }
 
+    async function getExpFitImg() {
+        const url = `http://localhost:8000/getSeqExpModelPNG?seqID=${msg}`;
+        changeExpImg(url);
+    }
+
     async function getAllPictures() {
         await getPicture();
         await getLinearFitImg();
         await getQuadraticFitImg();
+        await getExpFitImg();
+    }
+
+    async function getLinearCoeffs() {
+        const url = `http://localhost:8000/getLinearCoeffs?seqID=${msg}`;
+        try {
+            const response = await fetch(url);
+            const json = await response.json();
+            setLinearCoeffs(json.toString());
+            console.log(json);
+        } catch (error) {
+            console.log("Error getting linear coeffs");
+        }
     }
 
     return (
@@ -68,12 +90,14 @@ function Homepage() {
                         onChange={handleMsgChange}
                     ></input>
                     <button onClick={getAllPictures}>Get All</button>
+                    <button onClick={getPicture}>Get Picture</button>
+                    <button onClick={getLinearFitImg}>Get Linear Model</button>
+                    <button onClick={getLinearCoeffs}>Get Linear Coeffs</button>
                 </div>
                 {/* <button onClick={getData}>get (A) File</button>
-                <button onClick={getDataB}>get (B) File</button>
-                <button onClick={getPicture}>Get Picture</button>
-                <button onClick={getLinearFitImg}>Get Linear Model</button>
-                <button onClick={getQuadraticFitImg}>
+                <button onClick={getDataB}>get (B) File</button> */}
+
+                {/* <button onClick={getQuadraticFitImg}>
                     Get Quadratic Model
                 </button> */}
 
@@ -88,9 +112,14 @@ function Homepage() {
                     <div>
                         <img src={QMImg}></img>
                     </div>
+
+                    <div>
+                        <img src={ExpImg}></img>
+                    </div>
                 </div>
             </div>
             <div>{txt}</div>
+            <div>{linearCoeffs}</div>
         </div>
     );
 }
