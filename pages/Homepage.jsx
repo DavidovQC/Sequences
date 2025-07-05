@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./page_styles/homepage.css";
+import Navbar from "../assets/navbar";
 
 function Homepage() {
     const [msg, changeMsg] = useState("000045");
@@ -9,6 +10,8 @@ function Homepage() {
     const [linearCoeffs, setLinearCoeffs] = useState();
     const [QMImg, changeQMImg] = useState();
     const [ExpImg, changeExpImg] = useState();
+    const [RationalImg, changeRationalImg] = useState();
+    const [RecurrenceImg, changeRecurrenceImg] = useState();
 
     function handleMsgChange(e) {
         changeMsg(e.target.value);
@@ -61,11 +64,23 @@ function Homepage() {
         changeExpImg(url);
     }
 
+    async function getRationalFitImg() {
+        const url = `http://localhost:8000/getSeqRationalModelPNG?seqID=${msg}`;
+        changeRationalImg(url);
+    }
+
+    async function getRecurrenceFitImg() {
+        const url = `http://localhost:8000/getSeqRecurrenceModelPNG?seqID=${msg}`;
+        changeRecurrenceImg(url);
+    }
+
     async function getAllPictures() {
         await getPicture();
         await getLinearFitImg();
         await getQuadraticFitImg();
         await getExpFitImg();
+        await getRationalFitImg();
+        await getRecurrenceFitImg();
     }
 
     async function getLinearCoeffs() {
@@ -82,6 +97,7 @@ function Homepage() {
 
     return (
         <div>
+            <Navbar></Navbar>
             <div>
                 <div className="fetch-section">
                     <input
@@ -115,6 +131,15 @@ function Homepage() {
 
                     <div>
                         <img src={ExpImg}></img>
+                    </div>
+                </div>
+                <div className="other-fits">
+                    <div>
+                        <img src={RationalImg}></img>
+                    </div>
+
+                    <div>
+                        <img src={RecurrenceImg}></img>
                     </div>
                 </div>
             </div>

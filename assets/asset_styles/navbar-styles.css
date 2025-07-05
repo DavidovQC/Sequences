@@ -1,0 +1,53 @@
+.nav {
+    background-color: #333;
+    color: white;
+    height: 75px;
+    padding: 30px;
+}
+
+.title-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-wrap a {
+    text-decoration: none;
+}
+
+.options-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.nav a {
+    color: white;
+}
+
+.options-wrap a:hover {
+    color: rgb(115, 172, 200);
+}
+
+.options-wrap ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.options-wrap a {
+    font-weight: 900;
+    text-decoration: none;
+}
+
+.site-title {
+    font-size: 30px;
+    font: 400 36px "Josefin Slab", sans-serif;
+}
+
+li {
+    font-family: "Josefin Slab";
+}
