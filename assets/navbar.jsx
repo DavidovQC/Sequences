@@ -25,6 +25,10 @@ function Navbar() {
                     <li>
                         <a href="/Contact">Contact</a>
                     </li>
+
+                    <li>
+                        <a href="/Analyze">Analyze</a>
+                    </li>
                 </ul>
             </div>
         </nav>

@@ -1,10 +1,13 @@
 import { useState } from "react";
 import "./page_styles/homepage.css";
-import Navbar from "../assets/navbar";
+import Navbar from "../assets/Navbar";
+import Searchbar from "../assets/Searchbar";
+import SearchResultsList from "../assets/SearchResultsList";
 
 function Homepage() {
     const [msg, changeMsg] = useState("000045");
     const [txt, changeTxt] = useState("");
+    const [allSeqData, changeAllSeqData] = useState();
     const [seqImg, changeSeqImg] = useState();
     const [LMImg, changeLMImg] = useState();
     const [linearCoeffs, setLinearCoeffs] = useState();
@@ -12,9 +15,36 @@ function Homepage() {
     const [ExpImg, changeExpImg] = useState();
     const [RationalImg, changeRationalImg] = useState();
     const [RecurrenceImg, changeRecurrenceImg] = useState();
+    const [LogImg, changeLogImg] = useState();
+
+    async function getAllSequenceData() {
+        const url = `http://localhost:8000/getAllSequenceData`;
+        try {
+            const response = await fetch(url);
+            const json = await response.json();
+
+            const results = json.filter((sequence) => {
+                return (
+                    msg &&
+                    sequence &&
+                    (sequence.title[0].toLowerCase().includes(msg) ||
+                        sequence.data[0]
+                            .replace(/\s+/g, "")
+                            .includes(msg.replace(/\s+/g, "")))
+                );
+            });
+
+            changeAllSeqData(results);
+            console.log(results);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 
     function handleMsgChange(e) {
         changeMsg(e.target.value);
+        getAllSequenceData();
+        console.log(msg);
     }
 
     function handleLinearCoeffsChange() {}
@@ -74,6 +104,11 @@ function Homepage() {
         changeRecurrenceImg(url);
     }
 
+    async function getLogFitImg() {
+        const url = `http://localhost:8000/getSeqLogModelPNG/${msg}`;
+        changeLogImg(url);
+    }
+
     async function getAllPictures() {
         await getPicture();
         await getLinearFitImg();
@@ -81,6 +116,7 @@ function Homepage() {
         await getExpFitImg();
         await getRationalFitImg();
         await getRecurrenceFitImg();
+        await getLogFitImg();
     }
 
     async function getLinearCoeffs() {
@@ -100,7 +136,13 @@ function Homepage() {
             <Navbar></Navbar>
             <div>
                 <div className="fetch-section">
-                    <input
+                    <Searchbar
+                        value={msg}
+                        onChange={handleMsgChange}
+                        possibilites={allSeqData}
+                    ></Searchbar>
+                    <SearchResultsList results={"hello"}></SearchResultsList>
+                    {/* <input
                         type="text"
                         value={msg}
                         onChange={handleMsgChange}
@@ -108,7 +150,7 @@ function Homepage() {
                     <button onClick={getAllPictures}>Get All</button>
                     <button onClick={getPicture}>Get Picture</button>
                     <button onClick={getLinearFitImg}>Get Linear Model</button>
-                    <button onClick={getLinearCoeffs}>Get Linear Coeffs</button>
+                    <button onClick={getLinearCoeffs}>Get Linear Coeffs</button> */}
                 </div>
                 {/* <button onClick={getData}>get (A) File</button>
                 <button onClick={getDataB}>get (B) File</button> */}
@@ -140,6 +182,10 @@ function Homepage() {
 
                     <div>
                         <img src={RecurrenceImg}></img>
+                    </div>
+
+                    <div>
+                        <img src={LogImg}></img>
                     </div>
                 </div>
             </div>
