@@ -7,7 +7,7 @@ import SearchResultsList from "../assets/SearchResultsList";
 function Homepage() {
     const [msg, changeMsg] = useState("000045");
     const [txt, changeTxt] = useState("");
-    const [allSeqData, changeAllSeqData] = useState();
+    const [allSeqData, changeAllSeqData] = useState([]);
     const [seqImg, changeSeqImg] = useState();
     const [LMImg, changeLMImg] = useState();
     const [linearCoeffs, setLinearCoeffs] = useState();
@@ -16,8 +16,9 @@ function Homepage() {
     const [RationalImg, changeRationalImg] = useState();
     const [RecurrenceImg, changeRecurrenceImg] = useState();
     const [LogImg, changeLogImg] = useState();
+    const [searchBarFocused, setSearchBarFocus] = useState(false);
 
-    async function getAllSequenceData() {
+    async function getAllSequenceData(msg) {
         const url = `http://localhost:8000/getAllSequenceData`;
         try {
             const response = await fetch(url);
@@ -42,12 +43,19 @@ function Homepage() {
     }
 
     function handleMsgChange(e) {
-        changeMsg(e.target.value);
-        getAllSequenceData();
-        console.log(msg);
+        const newMsg = e.target.value;
+        changeMsg(newMsg);
+        getAllSequenceData(newMsg);
+        console.log(newMsg);
     }
 
-    function handleLinearCoeffsChange() {}
+    function handleSearchBarFocus() {
+        setSearchBarFocus(true);
+    }
+
+    function handleSearchBarBlur() {
+        setTimeout(() => setSearchBarFocus(false), 150); // gives click time to register
+    }
 
     async function getData() {
         const url = `http://localhost:8000/seq?seqID=${msg}`;
@@ -73,50 +81,55 @@ function Homepage() {
         }
     }
 
-    async function getPicture() {
-        const url = `http://localhost:8000/getSeqPNG?seqID=${msg}`;
+    async function getPicture(seqID) {
+        const url = `http://localhost:8000/getSeqPNG?seqID=${seqID}`;
         changeSeqImg(url);
         console.log(url);
     }
 
-    async function getLinearFitImg() {
-        const url = `http://localhost:8000/getSeqLinearModelPNG?seqID=${msg}`;
+    async function getLinearFitImg(seqID) {
+        const url = `http://localhost:8000/getSeqLinearModelPNG?seqID=${seqID}`;
         changeLMImg(url);
     }
 
-    async function getQuadraticFitImg() {
-        const url = `http://localhost:8000/getSeqQuadraticModelPNG?seqID=${msg}`;
+    async function getQuadraticFitImg(seqID) {
+        const url = `http://localhost:8000/getSeqQuadraticModelPNG?seqID=${seqID}`;
         changeQMImg(url);
     }
 
-    async function getExpFitImg() {
-        const url = `http://localhost:8000/getSeqExpModelPNG?seqID=${msg}`;
+    async function getExpFitImg(seqID) {
+        const url = `http://localhost:8000/getSeqExpModelPNG?seqID=${seqID}`;
         changeExpImg(url);
     }
 
-    async function getRationalFitImg() {
-        const url = `http://localhost:8000/getSeqRationalModelPNG?seqID=${msg}`;
+    async function getRationalFitImg(seqID) {
+        const url = `http://localhost:8000/getSeqRationalModelPNG?seqID=${seqID}`;
         changeRationalImg(url);
     }
 
-    async function getRecurrenceFitImg() {
-        const url = `http://localhost:8000/getSeqRecurrenceModelPNG?seqID=${msg}`;
+    async function getRecurrenceFitImg(seqID) {
+        const url = `http://localhost:8000/getSeqRecurrenceModelPNG?seqID=${seqID}`;
         changeRecurrenceImg(url);
     }
 
-    async function getLogFitImg() {
-        const url = `http://localhost:8000/getSeqLogModelPNG/${msg}`;
+    async function getLogFitImg(seqID) {
+        const url = `http://localhost:8000/getSeqLogModelPNG/${seqID}`;
         changeLogImg(url);
     }
 
-    async function getAllPictures() {
-        await getPicture();
-        await getLinearFitImg();
-        await getQuadraticFitImg();
-        await getExpFitImg();
-        await getRationalFitImg();
-        await getRecurrenceFitImg();
-        await getLogFitImg();
+    async function getAllPictures(seqID) {
+        await getPicture(seqID);
+        await getLinearFitImg(seqID);
+        await getQuadraticFitImg(seqID);
+        await getExpFitImg(seqID);
+        await getRationalFitImg(seqID);
+        await getRecurrenceFitImg(seqID);
+        await getLogFitImg(seqID);
+    }
+
+    async function clickResult(result) {
+        const seqID = result.seqID[0];
+        getAllPictures(seqID);
     }
 
     async function getLinearCoeffs() {
@@ -140,24 +153,16 @@ function Homepage() {
                         value={msg}
                         onChange={handleMsgChange}
                         possibilites={allSeqData}
+                        onFocus={() => handleSearchBarFocus()}
+                        onBlur={() => handleSearchBarBlur()}
                     ></Searchbar>
-                    <SearchResultsList results={"hello"}></SearchResultsList>
-                    {/* <input
-                        type="text"
-                        value={msg}
-                        onChange={handleMsgChange}
-                    ></input>
-                    <button onClick={getAllPictures}>Get All</button>
-                    <button onClick={getPicture}>Get Picture</button>
-                    <button onClick={getLinearFitImg}>Get Linear Model</button>
-                    <button onClick={getLinearCoeffs}>Get Linear Coeffs</button> */}
+                    {searchBarFocused && (
+                        <SearchResultsList
+                            results={allSeqData}
+                            performOnClick={clickResult}
+                        ></SearchResultsList>
+                    )}
                 </div>
-                {/* <button onClick={getData}>get (A) File</button>
-                <button onClick={getDataB}>get (B) File</button> */}
-
-                {/* <button onClick={getQuadraticFitImg}>
-                    Get Quadratic Model
-                </button> */}
 
                 <div className="main-image">
                     <img src={seqImg}></img>

@@ -1,9 +1,11 @@
 .results-container {
     width: 500px;
-    margin-top: 20px;
+    margin-top: 60px;
     display: flex;
     align-items: center;
     max-height: 300px;
+    position: absolute;
+    z-index: 100;
 }
 
 .results-list {

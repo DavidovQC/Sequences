@@ -1,44 +1,19 @@
 import "./asset_styles/search-results-list-styles.css";
 import SearchResult from "./SearchResult";
 
-function SearchResultsList({ results }) {
+function SearchResultsList({ results, performOnClick }) {
     return (
         <div className="results-container">
             <div className="results-list">
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-                {/* {results.map((result, id) => {
-                    <SearchResult result={result} key={id}></SearchResult>;
-                })} */}
+                {results.map((result, id) => {
+                    return (
+                        <SearchResult
+                            key={id}
+                            result={result}
+                            performOnClick={performOnClick}
+                        ></SearchResult>
+                    );
+                })}
             </div>
         </div>
     );

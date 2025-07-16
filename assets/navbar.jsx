@@ -18,17 +18,17 @@ function Navbar() {
                         <a href="/About">About</a>
                     </li>
 
-                    <li>
+                    {/* <li>
                         <a href="/Results">Results</a>
-                    </li>
+                    </li> */}
 
                     <li>
                         <a href="/Contact">Contact</a>
                     </li>
 
-                    <li>
+                    {/* <li>
                         <a href="/Analyze">Analyze</a>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </nav>

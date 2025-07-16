@@ -1,0 +1,24 @@
+.search-result-container {
+    padding: 10px 20px;
+    font-family: Helvetica, sans-serif;
+}
+
+.info-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-result-container:hover {
+    background-color: #efefef;
+    cursor: pointer;
+}
+
+.digits {
+    font-size: 10px;
+    color: #8e8d8d;
+}
+
+.sequence-id {
+    font-size: 11px;
+    color: rgb(115, 172, 200);
+}
