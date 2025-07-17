@@ -24,7 +24,12 @@ function Aboutpage() {
                         progresses. Users will soon be able to upload their own
                         sequences and run an analysis on those. Our hope is that
                         easy analytics on various sequences will help drive
-                        mathematical research (and recreation) forward.
+                        mathematical research (and recreation) forward. We also
+                        plan on answering some interesting questions by
+                        analyzing these sequences, these include, "what is the
+                        average best fit line on sequences of general interest
+                        to mathematicians?" where a sequence is of "general
+                        interest" if it appears on the OEIS.
                     </p>
 
                     <p className="reach-out-text">
