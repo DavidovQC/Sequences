@@ -29,7 +29,9 @@ function Aboutpage() {
                         analyzing these sequences, these include, "what is the
                         average best fit line on sequences of general interest
                         to mathematicians?" where a sequence is of "general
-                        interest" if it appears on the OEIS.
+                        interest" if it appears on the OEIS. Other questions,
+                        such as "what is the average best fit quadratic?"
+                        readily follow.
                     </p>
 
                     <p className="reach-out-text">
