@@ -1,0 +1,23 @@
+.about-page-contents-container {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-description-container {
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-description-container p {
+    font: 15pt "Josefin Slab", sans-serif;
+}
+
+.reach-out-text {
+    margin-top: 60px;
+}

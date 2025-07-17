@@ -4,6 +4,7 @@ import Navbar from "../assets/Navbar";
 import Searchbar from "../assets/Searchbar";
 import SearchResultsList from "../assets/SearchResultsList";
 import { BlockMath, InlineMath } from "react-katex";
+import Footer from "../assets/Footer";
 
 function Homepage() {
     const [msg, changeMsg] = useState("The Fibonacci Sequence");
@@ -345,70 +346,72 @@ function Homepage() {
 
     return (
         <div>
-            <Navbar></Navbar>
-            <div>
-                <div className="fetch-section">
-                    <Searchbar
-                        value={msg}
-                        onChange={handleMsgChange}
-                        possibilites={allSeqData}
-                        onFocus={() => handleSearchBarFocus()}
-                        onBlur={() => handleSearchBarBlur()}
-                    ></Searchbar>
-                    {searchBarFocused && (
-                        <SearchResultsList
-                            results={allSeqData}
-                            performOnClick={clickResult}
-                        ></SearchResultsList>
-                    )}
-                </div>
-
-                <div className="title-container">{title}</div>
-                <div className="sequence-container">{seq}</div>
-
-                <div className="main-image">
-                    <img src={seqImg}></img>
-                </div>
-                <div className="polynomial-fits">
-                    <div className="linear-model small-graph-container">
-                        <img src={LMImg}></img>
-                        <p>
-                            <InlineMath math={linearString}></InlineMath>
-                        </p>
+            <div className="homepage-container">
+                <Navbar></Navbar>
+                <div>
+                    <div className="fetch-section">
+                        <Searchbar
+                            value={msg}
+                            onChange={handleMsgChange}
+                            possibilites={allSeqData}
+                            onFocus={() => handleSearchBarFocus()}
+                            onBlur={() => handleSearchBarBlur()}
+                        ></Searchbar>
+                        {searchBarFocused && (
+                            <SearchResultsList
+                                results={allSeqData}
+                                performOnClick={clickResult}
+                            ></SearchResultsList>
+                        )}
                     </div>
 
-                    <div className="quadratic-model small-graph-container">
-                        <img src={QMImg}></img>
-                        <p>
-                            <InlineMath math={quadraticString}></InlineMath>
-                        </p>
-                    </div>
+                    <div className="title-container">{title}</div>
+                    <div className="sequence-container">{seq}</div>
 
-                    <div className="rational-model small-graph-container">
-                        <img src={RationalImg}></img>
-                        <p>
-                            <InlineMath math={rationalString}></InlineMath>
-                        </p>
+                    <div className="main-image">
+                        <img src={seqImg}></img>
                     </div>
-                </div>
-                <div className="other-fits">
-                    <div className="exponential-model small-graph-container">
-                        <img src={ExpImg}></img>
-                        <InlineMath math={exponentialString}></InlineMath>
-                    </div>
+                    <div className="polynomial-fits">
+                        <div className="linear-model small-graph-container">
+                            <img src={LMImg}></img>
+                            <p>
+                                <InlineMath math={linearString}></InlineMath>
+                            </p>
+                        </div>
 
-                    <div className="recursive-model small-graph-container">
-                        <img src={RecurrenceImg}></img>
-                        <InlineMath math={recursiveString}></InlineMath>
-                    </div>
+                        <div className="quadratic-model small-graph-container">
+                            <img src={QMImg}></img>
+                            <p>
+                                <InlineMath math={quadraticString}></InlineMath>
+                            </p>
+                        </div>
 
-                    <div className="logarithmic-model small-graph-container">
-                        <img src={LogImg}></img>
-                        <InlineMath math={logarithmicString}></InlineMath>
+                        <div className="rational-model small-graph-container">
+                            <img src={RationalImg}></img>
+                            <p>
+                                <InlineMath math={rationalString}></InlineMath>
+                            </p>
+                        </div>
+                    </div>
+                    <div className="other-fits">
+                        <div className="exponential-model small-graph-container">
+                            <img src={ExpImg}></img>
+                            <InlineMath math={exponentialString}></InlineMath>
+                        </div>
+
+                        <div className="recursive-model small-graph-container">
+                            <img src={RecurrenceImg}></img>
+                            <InlineMath math={recursiveString}></InlineMath>
+                        </div>
+
+                        <div className="logarithmic-model small-graph-container">
+                            <img src={LogImg}></img>
+                            <InlineMath math={logarithmicString}></InlineMath>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div></div>
+            <div className="footer-section"></div>
         </div>
     );
 }
