@@ -1,21 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./page_styles/homepage.css";
 import Navbar from "../assets/Navbar";
 import Searchbar from "../assets/Searchbar";
 import SearchResultsList from "../assets/SearchResultsList";
+import { BlockMath, InlineMath } from "react-katex";
 
 function Homepage() {
-    const [msg, changeMsg] = useState("000045");
-    const [txt, changeTxt] = useState("");
+    const [msg, changeMsg] = useState("The Fibonacci Sequence");
+    const [seq, changeSeq] = useState("");
+    const [title, changeTitle] = useState("");
+
     const [allSeqData, changeAllSeqData] = useState([]);
+
     const [seqImg, changeSeqImg] = useState();
     const [LMImg, changeLMImg] = useState();
-    const [linearCoeffs, setLinearCoeffs] = useState();
     const [QMImg, changeQMImg] = useState();
     const [ExpImg, changeExpImg] = useState();
     const [RationalImg, changeRationalImg] = useState();
     const [RecurrenceImg, changeRecurrenceImg] = useState();
     const [LogImg, changeLogImg] = useState();
+
+    const [linearCoeffs, setLinearCoeffs] = useState([]);
+    const [quadraticCoeffs, setQuadraticCoeffs] = useState([]);
+    const [rationalCoeffs, setRationalCoeffs] = useState([]);
+    const [exponentialCoeffs, setExponentialCoeffs] = useState([]);
+    const [recursiveCoeffs, setRecursiveCoeffs] = useState([]);
+    const [logarithmicCoeffs, setLogarithmicCoeffs] = useState([]);
+
+    const [linearString, setLinearString] = useState("");
+    const [quadraticString, setQuadraticString] = useState("");
+    const [rationalString, setRationalString] = useState("");
+    const [exponentialString, setExponentialString] = useState("");
+    const [recursiveString, setRecursiveString] = useState("");
+    const [logarithmicString, setLogarthmicString] = useState("");
+
     const [searchBarFocused, setSearchBarFocus] = useState(false);
 
     async function getAllSequenceData(msg) {
@@ -57,29 +75,29 @@ function Homepage() {
         setTimeout(() => setSearchBarFocus(false), 150); // gives click time to register
     }
 
-    async function getData() {
-        const url = `http://localhost:8000/seq?seqID=${msg}`;
-        try {
-            const response = await fetch(url);
-            const json = await response.json();
-            changeTxt(json);
-            console.log(json);
-        } catch (error) {
-            console.log(error.message);
-        }
-    }
+    // async function getData() {
+    //     const url = `http://localhost:8000/seq?seqID=${msg}`;
+    //     try {
+    //         const response = await fetch(url);
+    //         const json = await response.json();
+    //         changeTxt(json);
+    //         console.log(json);
+    //     } catch (error) {
+    //         console.log(error.message);
+    //     }
+    // }
 
-    async function getDataB() {
-        const url = `http://localhost:8000/seqB?seqID=${msg}`;
-        try {
-            const response = await fetch(url);
-            const json = await response.json();
-            changeTxt(json);
-            console.log(json);
-        } catch (error) {
-            console.log(error.message);
-        }
-    }
+    // async function getDataB() {
+    //     const url = `http://localhost:8000/seqB?seqID=${msg}`;
+    //     try {
+    //         const response = await fetch(url);
+    //         const json = await response.json();
+    //         changeTxt(json);
+    //         console.log(json);
+    //     } catch (error) {
+    //         console.log(error.message);
+    //     }
+    // }
 
     async function getPicture(seqID) {
         const url = `http://localhost:8000/getSeqPNG?seqID=${seqID}`;
@@ -129,20 +147,201 @@ function Homepage() {
 
     async function clickResult(result) {
         const seqID = result.seqID[0];
+        const title = result.title[0];
+        const seq = result.data[0];
+        const goodSeq = seq.replace(/,/g, ", ") + ",...";
+        changeSeq(goodSeq);
+        changeTitle(title);
+        changeMsg(title);
+        changeSeq(goodSeq);
+
+        getLinearCoeffs(seqID);
+        getQuadraticCoeffs(seqID);
+        getRationalCoeffs(seqID);
+        getExponentialCoeffs(seqID);
+        getRecursiveCoeffs(seqID);
+        getLogarithmicCoeffs(seqID);
+
         getAllPictures(seqID);
     }
 
-    async function getLinearCoeffs() {
-        const url = `http://localhost:8000/getLinearCoeffs?seqID=${msg}`;
+    async function getLinearCoeffs(seqID) {
+        const url = `http://localhost:8000/getLinearCoeffs?seqID=${seqID}`;
         try {
             const response = await fetch(url);
             const json = await response.json();
-            setLinearCoeffs(json.toString());
-            console.log(json);
+            const formatted = json.map((elt) => formatScientific(elt));
+            setLinearCoeffs(formatted);
+            console.log(formatted);
         } catch (error) {
             console.log("Error getting linear coeffs");
         }
     }
+
+    async function getQuadraticCoeffs(seqID) {
+        const url = `http://localhost:8000/getQuadraticCoeffs?seqID=${seqID}`;
+        try {
+            const response = await fetch(url);
+            const json = await response.json();
+            const formatted = json.map((elt) => formatScientific(elt));
+            setQuadraticCoeffs(formatted);
+            console.log(formatted);
+        } catch (error) {
+            console.log("Error getting quadratic coeffs");
+        }
+    }
+
+    async function getRationalCoeffs(seqID) {
+        const url = `http://localhost:8000/getRationalCoeffs?seqID=${seqID}`;
+        try {
+            const response = await fetch(url);
+            const json = await response.json();
+            // const formatted = json.map((elt) => formatScientific(elt));
+            setRationalCoeffs(json);
+            console.log(json);
+        } catch (error) {
+            console.log("Error getting rational coeffs");
+            console.log(error.message);
+        }
+    }
+
+    async function getExponentialCoeffs(seqID) {
+        const url = `http://localhost:8000/getExponentialCoeffs?seqID=${seqID}`;
+        try {
+            const response = await fetch(url);
+            const json = await response.json();
+            const formatted = json.map((elt) => formatScientific(elt));
+            setExponentialCoeffs(formatted);
+            console.log(formatted);
+        } catch (error) {
+            console.log("Error getting rational coeffs");
+            console.log(error.message);
+        }
+    }
+
+    async function getRecursiveCoeffs(seqID) {
+        const url = `http://localhost:8000/getRecursiveCoeffs?seqID=${seqID}`;
+        try {
+            const response = await fetch(url);
+            const json = await response.json();
+            const formatted = json.map((elt) => formatScientific(elt));
+            setRecursiveCoeffs(formatted);
+            console.log(json);
+        } catch (error) {
+            console.log("Error getting recursive coeffs");
+            console.log(error.message);
+        }
+    }
+
+    async function getLogarithmicCoeffs(seqID) {
+        const url = `http://localhost:8000/getLogarithmicCoeffs?seqID=${seqID}`;
+        try {
+            const response = await fetch(url);
+            const json = await response.json();
+            const formatted = json.map((elt) => formatScientific(elt));
+            setLogarithmicCoeffs(formatted);
+            console.log(json);
+        } catch (error) {
+            console.log("Error getting logarithmic coeffs");
+            console.log(error.message);
+        }
+    }
+
+    function formatScientific(num) {
+        num = Number(num);
+        if (typeof num !== "number" || isNaN(num)) return "NaN";
+
+        const absNum = Math.abs(num);
+
+        // Use scientific notation if the number is too large or too small
+        if (absNum >= 1e5 || (absNum < 1e-3 && absNum !== 0)) {
+            const exponent = Math.floor(Math.log10(absNum));
+            const mantissa = (num / Math.pow(10, exponent)).toFixed(2); // 3 significant digits
+
+            return `${mantissa} \\times 10^{${exponent}}`;
+        } else {
+            return num.toFixed(2); // fixed-point format
+        }
+    }
+
+    function createRationalString() {
+        const numerator = rationalCoeffs.numerator;
+        const denominator = rationalCoeffs.denominator;
+
+        return `y = \\frac{${formatScientific(
+            numerator[0]
+        )}x^3+${formatScientific(numerator[1])}x^2+${formatScientific(
+            numerator[2]
+        )}x+${formatScientific(numerator[3])}}{${formatScientific(
+            denominator[0]
+        )}x^3+${formatScientific(denominator[1])}x^2+${formatScientific(
+            denominator[2]
+        )}x+${formatScientific(denominator[3])}}`;
+    }
+
+    function createLinearString() {
+        setLinearString(`y= ${linearCoeffs[1]}x+${linearCoeffs[0]}`);
+    }
+
+    function createQuadraticString() {
+        setQuadraticString(
+            `y= ${quadraticCoeffs[2]}x^2+${quadraticCoeffs[1]}x+${quadraticCoeffs[0]}`
+        );
+    }
+
+    function createExponentialString() {
+        setExponentialString(
+            `y=${Math.abs(exponentialCoeffs[0])}e^{${exponentialCoeffs[1]}}`
+        );
+    }
+
+    function createRecursiveString() {
+        setRecursiveString(
+            `y=x_{n}=${recursiveCoeffs[0]}x_{n-1}+${recursiveCoeffs[1]}x_{n-2}`
+        );
+    }
+
+    function createLogarithmicString() {
+        setLogarthmicString(
+            `y=${logarithmicCoeffs[0]}ln(x)+${logarithmicCoeffs[1]}`
+        );
+    }
+
+    useEffect(() => {
+        if (
+            rationalCoeffs?.numerator?.length >= 4 &&
+            rationalCoeffs?.denominator?.length >= 4
+        ) {
+            setRationalString(createRationalString());
+        }
+
+        if (linearCoeffs?.length > 0) {
+            createLinearString();
+        }
+
+        if (quadraticCoeffs?.length > 0) {
+            createQuadraticString();
+        }
+
+        if (recursiveCoeffs?.length > 0) {
+            createRecursiveString();
+        }
+
+        if (exponentialCoeffs?.length > 0) {
+            createExponentialString();
+        }
+
+        if (logarithmicCoeffs?.length > 0) {
+            createLogarithmicString();
+        }
+    }, [
+        rationalCoeffs,
+        linearCoeffs,
+        quadraticCoeffs,
+        recursiveCoeffs,
+        exponentialCoeffs,
+        logarithmicCoeffs,
+    ]);
 
     return (
         <div>
@@ -164,38 +363,52 @@ function Homepage() {
                     )}
                 </div>
 
+                <div className="title-container">{title}</div>
+                <div className="sequence-container">{seq}</div>
+
                 <div className="main-image">
                     <img src={seqImg}></img>
                 </div>
                 <div className="polynomial-fits">
-                    <div>
+                    <div className="linear-model small-graph-container">
                         <img src={LMImg}></img>
+                        <p>
+                            <InlineMath math={linearString}></InlineMath>
+                        </p>
                     </div>
 
-                    <div>
+                    <div className="quadratic-model small-graph-container">
                         <img src={QMImg}></img>
+                        <p>
+                            <InlineMath math={quadraticString}></InlineMath>
+                        </p>
                     </div>
 
-                    <div>
-                        <img src={ExpImg}></img>
+                    <div className="rational-model small-graph-container">
+                        <img src={RationalImg}></img>
+                        <p>
+                            <InlineMath math={rationalString}></InlineMath>
+                        </p>
                     </div>
                 </div>
                 <div className="other-fits">
-                    <div>
-                        <img src={RationalImg}></img>
+                    <div className="exponential-model small-graph-container">
+                        <img src={ExpImg}></img>
+                        <InlineMath math={exponentialString}></InlineMath>
                     </div>
 
-                    <div>
+                    <div className="recursive-model small-graph-container">
                         <img src={RecurrenceImg}></img>
+                        <InlineMath math={recursiveString}></InlineMath>
                     </div>
 
-                    <div>
+                    <div className="logarithmic-model small-graph-container">
                         <img src={LogImg}></img>
+                        <InlineMath math={logarithmicString}></InlineMath>
                     </div>
                 </div>
             </div>
-            <div>{txt}</div>
-            <div>{linearCoeffs}</div>
+            <div></div>
         </div>
     );
 }

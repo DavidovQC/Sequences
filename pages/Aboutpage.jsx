@@ -1,4 +1,4 @@
-import Navbar from "../assets/navbar";
+import Navbar from "../assets/Navbar";
 
 function Aboutpage() {
     return (

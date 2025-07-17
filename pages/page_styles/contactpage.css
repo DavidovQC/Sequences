@@ -1,0 +1,7 @@
+.contact-info-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 400 25px "Josefin Slab", sans-serif;
+    height: 80vh;
+}
