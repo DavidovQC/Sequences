@@ -9,7 +9,8 @@ function Aboutpage() {
                 <div className="about-description-container">
                     <p>
                         This website is a tool for mathematicians and math
-                        enthusiasts which readily apply algorithms (using the{" "}
+                        enthusiasts where you can apply algorithms (implemented
+                        using the{" "}
                         <a href="https://www.r-project.org/">
                             R programming language
                         </a>
