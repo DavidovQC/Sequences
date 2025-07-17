@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./page_styles/homepage.css";
-import Navbar from "../assets/Navbar";
+import MyNav from "../assets/MyNav";
 import Searchbar from "../assets/Searchbar";
 import SearchResultsList from "../assets/SearchResultsList";
 import { BlockMath, InlineMath } from "react-katex";
@@ -347,7 +347,7 @@ function Homepage() {
     return (
         <div>
             <div className="homepage-container">
-                <Navbar></Navbar>
+                <MyNav></MyNav>
                 <div>
                     <div className="fetch-section">
                         <Searchbar

@@ -1,11 +1,11 @@
 import "./page_styles/contactpage.css";
 
-import Navbar from "../assets/Navbar";
+import MyNav from "../assets/MyNav";
 
 function Contactpage() {
     return (
         <>
-            <Navbar></Navbar>
+            <MyNav></MyNav>
             <div className="contact-info-container">
                 <p>
                     Feel free to reach out on my <a href="">LinkedIn!</a>

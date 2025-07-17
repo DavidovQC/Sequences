@@ -1,10 +1,10 @@
-import Navbar from "../assets/Navbar";
+import MyNav from "../assets/MyNav";
 import "./page_styles/aboutpage.css";
 
 function Aboutpage() {
     return (
         <>
-            <Navbar></Navbar>
+            <MyNav></MyNav>
             <div className="about-page-contents-container">
                 <div className="about-description-container">
                     <p>
