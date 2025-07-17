@@ -7,6 +7,9 @@ import { BlockMath, InlineMath } from "react-katex";
 import Footer from "../assets/Footer";
 
 function Homepage() {
+    // const site = "http://localhost:8000";
+    const site = "http://64.227.96.219/OAIS";
+
     const [msg, changeMsg] = useState("The Fibonacci Sequence");
     const [seq, changeSeq] = useState("");
     const [title, changeTitle] = useState("");
@@ -38,7 +41,7 @@ function Homepage() {
     const [searchBarFocused, setSearchBarFocus] = useState(false);
 
     async function getAllSequenceData(msg) {
-        const url = `http://localhost:8000/getAllSequenceData`;
+        const url = site + `/getAllSequenceData`;
         try {
             const response = await fetch(url);
             const json = await response.json();
@@ -101,38 +104,38 @@ function Homepage() {
     // }
 
     async function getPicture(seqID) {
-        const url = `http://localhost:8000/getSeqPNG?seqID=${seqID}`;
+        const url = site + `/getSeqPNG?seqID=${seqID}`;
         changeSeqImg(url);
         console.log(url);
     }
 
     async function getLinearFitImg(seqID) {
-        const url = `http://localhost:8000/getSeqLinearModelPNG?seqID=${seqID}`;
+        const url = site + `/getSeqLinearModelPNG?seqID=${seqID}`;
         changeLMImg(url);
     }
 
     async function getQuadraticFitImg(seqID) {
-        const url = `http://localhost:8000/getSeqQuadraticModelPNG?seqID=${seqID}`;
+        const url = site + `/getSeqQuadraticModelPNG?seqID=${seqID}`;
         changeQMImg(url);
     }
 
     async function getExpFitImg(seqID) {
-        const url = `http://localhost:8000/getSeqExpModelPNG?seqID=${seqID}`;
+        const url = site + `/getSeqExpModelPNG?seqID=${seqID}`;
         changeExpImg(url);
     }
 
     async function getRationalFitImg(seqID) {
-        const url = `http://localhost:8000/getSeqRationalModelPNG?seqID=${seqID}`;
+        const url = site + `/getSeqRationalModelPNG?seqID=${seqID}`;
         changeRationalImg(url);
     }
 
     async function getRecurrenceFitImg(seqID) {
-        const url = `http://localhost:8000/getSeqRecurrenceModelPNG?seqID=${seqID}`;
+        const url = site + `/getSeqRecurrenceModelPNG?seqID=${seqID}`;
         changeRecurrenceImg(url);
     }
 
     async function getLogFitImg(seqID) {
-        const url = `http://localhost:8000/getSeqLogModelPNG/${seqID}`;
+        const url = site + `/getSeqLogModelPNG/${seqID}`;
         changeLogImg(url);
     }
 
@@ -167,7 +170,7 @@ function Homepage() {
     }
 
     async function getLinearCoeffs(seqID) {
-        const url = `http://localhost:8000/getLinearCoeffs?seqID=${seqID}`;
+        const url = site + `/getLinearCoeffs?seqID=${seqID}`;
         try {
             const response = await fetch(url);
             const json = await response.json();
@@ -180,7 +183,7 @@ function Homepage() {
     }
 
     async function getQuadraticCoeffs(seqID) {
-        const url = `http://localhost:8000/getQuadraticCoeffs?seqID=${seqID}`;
+        const url = site + `/getQuadraticCoeffs?seqID=${seqID}`;
         try {
             const response = await fetch(url);
             const json = await response.json();
@@ -193,7 +196,7 @@ function Homepage() {
     }
 
     async function getRationalCoeffs(seqID) {
-        const url = `http://localhost:8000/getRationalCoeffs?seqID=${seqID}`;
+        const url = site + `/getRationalCoeffs?seqID=${seqID}`;
         try {
             const response = await fetch(url);
             const json = await response.json();
@@ -207,7 +210,7 @@ function Homepage() {
     }
 
     async function getExponentialCoeffs(seqID) {
-        const url = `http://localhost:8000/getExponentialCoeffs?seqID=${seqID}`;
+        const url = site + `/getExponentialCoeffs?seqID=${seqID}`;
         try {
             const response = await fetch(url);
             const json = await response.json();
@@ -221,7 +224,7 @@ function Homepage() {
     }
 
     async function getRecursiveCoeffs(seqID) {
-        const url = `http://localhost:8000/getRecursiveCoeffs?seqID=${seqID}`;
+        const url = site + `/getRecursiveCoeffs?seqID=${seqID}`;
         try {
             const response = await fetch(url);
             const json = await response.json();
@@ -235,7 +238,7 @@ function Homepage() {
     }
 
     async function getLogarithmicCoeffs(seqID) {
-        const url = `http://localhost:8000/getLogarithmicCoeffs?seqID=${seqID}`;
+        const url = site + `/getLogarithmicCoeffs?seqID=${seqID}`;
         try {
             const response = await fetch(url);
             const json = await response.json();
