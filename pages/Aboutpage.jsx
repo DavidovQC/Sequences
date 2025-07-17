@@ -21,11 +21,10 @@ function Aboutpage() {
                         so on. Upon launch, we have analyzed 50 out of the
                         385770(!) sequences available on the OEIS. We will
                         continue adding more fits and more sequences as time
-                        progresses. Users will soon eventually be able to upload
-                        their own sequences and run an analysis on those. Our
-                        hope is that easy analytics on various sequences will
-                        help drive mathematical research (and recreation)
-                        forward.
+                        progresses. Users will soon be able to upload their own
+                        sequences and run an analysis on those. Our hope is that
+                        easy analytics on various sequences will help drive
+                        mathematical research (and recreation) forward.
                     </p>
 
                     <p className="reach-out-text">
