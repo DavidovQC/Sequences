@@ -17,10 +17,10 @@ function Aboutpage() {
                         the <a href="https://oeis.org/">OEIS</a> (Online
                         Encyclopedia of Integer Sequences) and can see best fit
                         lines, best fit quadratics, best exponential fits, and
-                        so on. Upon launch, we have analyzed 300 out of the
+                        so on. Upon launch, we have analyzed 50 out of the
                         385770(!) sequences available on the OEIS. We will
                         continue adding more fits and more sequences as time
-                        progresses. Users will eventually be able to upload
+                        progresses. Users will soon eventually be able to upload
                         their own sequences and run an analysis on those. Our
                         hope is that easy analytics on various sequences will
                         help drive mathematical research (and recreation)
