@@ -8,7 +8,7 @@ import Footer from "../assets/Footer";
 
 function Homepage() {
     // const site = "http://localhost:8000";
-    const site = "http://64.227.96.219/OAIS";
+    const site = "https://oais.app/OAIS";
 
     const [msg, changeMsg] = useState("The Fibonacci Sequence");
     const [seq, changeSeq] = useState("");
